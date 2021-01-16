@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name     vnedu
-// @version  1.01
+// @version  1.02
 // @include     https://*.vnedu.vn/*
 // @grant    none
 // @description  Script tự động điền nhận xét cho VNEdu
