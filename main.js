@@ -1,11 +1,12 @@
 // ==UserScript==
 // @name     vnedu
 // @version  1.01
-// @include     https://nmceanasesgddongthap.vnedu.vn/*
+// @include     https://*.vnedu.vn/*
 // @grant    none
 // @description  Script tự động điền nhận xét cho VNEdu
 // @author    riverstore (Nguyen Nhut Truong)
 // @homepageURL  https://github.com/riverstore/vnedu-auto
+// @namespace https://greasyfork.org/users/728004
 // ==/UserScript==
 
 //var btnUnikey = document.getElementById('btnUnikey');
@@ -28,14 +29,14 @@ btnNhanxet.addEventListener('click', function () {
 
         var tables = document.getElementsByTagName('table');
         var SLTable = tables.length;
-				console.log("sl table=" + SLTable);
+		console.log("sl table=" + SLTable);
         // Duyệt qua từng bảng để tìm bảng nhập nhận xét
         for (var i = 0; i < SLTable; i++) {
           var trArr = tables[i].getElementsByTagName('tr');
 					
           if(trArr.length>=3){//Bảng có từ 3 dòng trở lên
             var tdArr = trArr[0].getElementsByTagName('td'); // Dòng đầu tiên
-						console.log(tdArr.length);
+			console.log(tdArr.length);
             console.log(tdArr[8].innerText);
             // Nếu bảng có 10 ô mới xét 
             if(tdArr.length==10){
@@ -56,14 +57,29 @@ btnNhanxet.addEventListener('click', function () {
           
           // Nếu tìm thấy
           if(IsFoundSodiemTable){
-          	for (var j = 2; j < trArr.length; j++){
-							var tdArr = trArr[j].getElementsByTagName('td'); // Dòng đầu tiên
-              var diemStr = tdArr[7].innerText;
-              console.log(diemStr);
-              if(!isNaN(diemStr)){
-              	var diemNumber = parseFloat(diemStr);
-								console.log(diemNumber + "-->" + Mark2Remark(diemNumber));
-			   			}
+          	for (var j = 2; j < trArr.length; j++){ // Duyệt qua từng dòng
+              tdArr = trArr[j].getElementsByTagName('td');
+
+                // Tìm input nhập điểm
+                var txtDiemArr = tdArr[12].getElementsByTagName('input');
+
+                // Nếu tìm thấy
+                if (typeof(txtDiemArr) != 'undefined' || txtDiemArr != null || txtDiemArr.length > 0){
+                    var diemStr = tdArr[11].innerText;
+                    console.log(diemStr);
+                    if(diemStr != "" && !isNaN(diemStr)){
+                        var diemNumber = parseFloat(diemStr);
+                        var txtDiem = txtDiemArr[0];
+                        txtDiem.value = Mark2Remark(diemNumber);
+
+                        //console.log(diemNumber + "-->" + Mark2Remark(diemNumber));
+			   		}
+                }else{
+                    console.log("Không tìm thấy thẻ input");
+                }
+
+
+
             } // for (var j = 2; j < trArr.length; j++)
           
           } // if(IsFoundSodiemTable)
