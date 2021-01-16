@@ -8,7 +8,7 @@ Tự động điền nhận xét cho giáo viên bộ môn trên hệ thống VN
 ## SỬ DỤNG
 
 1. Mở **Sổ điểm** của lớp cần nhập nhận xét
-1. Nhấn nút **NX** ở gốc trên bên trái
+1. Nhấn nút **NX** ở góc trên bên trái
 1. Lưu
 
 ## QUY ƯỚC
